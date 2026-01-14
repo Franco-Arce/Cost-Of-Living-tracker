@@ -59,6 +59,19 @@ Run the unit tests to verify data processing logic:
 pytest -v
 ```
 
+## 📊 Visualization
+
+### Streamlit Dashboard (New!)
+We have added a Streamlit dashboard to visualize the data interactively.
+
+**Run locally:**
+```bash
+streamlit run app.py
+```
+
+**Deploy:**
+You can deploy this repo directly to [Streamlit Cloud](https://streamlit.io/cloud). Just connect your GitHub repository and set the main file to `app.py`.
+
 ## 📊 Power BI Connection
 1. Open Power BI Desktop.
 2. Get Data -> Google Sheets.
