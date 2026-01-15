@@ -1,82 +1,193 @@
 # 🌍 Global Cost of Living Tracker
 
-Automated dashboard that compares the **Real Purchasing Power** between different cities worldwide. It goes beyond simple price comparison by calculating how many hours of work are needed to buy a basic basket of goods.
+A modern web application to compare the **Real Purchasing Power** between different cities worldwide. Built with FastAPI backend and React frontend.
 
-## 🚀 Project Overview
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
+![Python](https://img.shields.io/badge/python-3.14-green)
+![React](https://img.shields.io/badge/react-18.3-blue)
+![FastAPI](https://img.shields.io/badge/fastapi-0.128-teal)
 
-- **Source**: [Numbeo](https://www.numbeo.com) (Scraping).
-- **ETL**: Python 3.12 (Requests, BeautifulSoup, Pandas).
-- **Storage**: Google Sheets (Cloud Database).
-- **Visualization**: Power BI.
-- **Automation**: GitHub Actions (Runs weekly).
+## ✨ Features
 
-## 🛠️ Components
+- 💰 **KPI Metrics**: Average Purchasing Power Index, Hours to Earn Basket, Highest PP City
+- 📊 **Interactive Charts**: 
+  - Purchasing Power Index by City (Bar Chart)
+  - Cost of Living vs Salary (Scatter Plot)
+  - Hours to Earn Basket (Bar Chart)
+- 🔍 **Smart Filtering**: Filter by countries with search functionality
+- 🎨 **Premium Design**: Glassmorphism effects, smooth animations, dark mode
+- ⚡ **Fast & Modern**: Built with Vite, React 18, and TailwindCSS
 
-The project is structured as a modular Python package:
+## 🚀 Quick Start
 
-- `src/scraper.py`: Handles polite fetching and robust parsing of Numbeo data.
-- `src/processor.py`: Cleans currency strings and calculates metrics (Purchasing Power Index).
-- `src/storage.py`: Manages Google Sheets authentication and data uploading.
-- `src/main.py`: Orchestrator that ties the pipeline together.
-- `.github/workflows/main.yml`: CI/CD configuration for automated execution.
+### Prerequisites
 
-## ⚙️ Setup & Installation
+- **Python 3.14+** (already installed ✅)
+- **Node.js 20+** ([Download here](https://nodejs.org/))
 
-### 1. Prerequisites
-- Python 3.12+
-- a Google Cloud Service Account with Google Sheets API enabled.
+### Installation
 
-### 2. Environment Setup
-Clone the repository and install dependencies:
+1. **Install Node.js** (if not installed)
+   - See [INSTALL.md](INSTALL.md) for detailed instructions
 
+2. **Install Backend Dependencies**
+   ```bash
+   cd backend
+   python -m pip install -r requirements.txt
+   ```
+
+3. **Install Frontend Dependencies**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+### Running the Application
+
+You need **two terminals** running simultaneously:
+
+**Terminal 1 - Backend:**
 ```bash
-pip install -r requirements.txt
+cd backend
+python -m uvicorn main:app --reload --port 8000
 ```
 
-### 3. Credentials
-You need a `credentials.json` file from your Google Cloud Service Account.
-1. Place it in the root directory (for local runs) OR set the `GDRIVE_API_CREDENTIALS` environment variable (JSON string).
-2. Create a Google Sheet and share it with the Service Account email.
-3. Get the Sheet ID from the URL and set it as `GOOGLE_SHEET_ID`.
-
-### 4. Running Locally
-Create a `.env` file:
-```ini
-GOOGLE_SHEET_ID=your_sheet_id
-# Optional if you are using credentials.json file
-GDRIVE_API_CREDENTIALS={"type": "service_account", ...} 
-```
-
-Run the pipeline:
+**Terminal 2 - Frontend:**
 ```bash
-python -m src.main
+cd frontend
+npm run dev
 ```
 
-## ✅ Testing
-Run the unit tests to verify data processing logic:
+Then open your browser at: **http://localhost:5173**
 
+## 📁 Project Structure
+
+```
+Global Cost of Living Tracker/
+├── backend/
+│   ├── main.py              # FastAPI server
+│   └── requirements.txt     # Python dependencies
+├── frontend/
+│   ├── src/
+│   │   ├── components/      # React components
+│   │   │   ├── KPICards.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   ├── PurchasingPowerChart.jsx
+│   │   │   ├── CostVsSalaryChart.jsx
+│   │   │   └── HoursToEarnChart.jsx
+│   │   ├── services/
+│   │   │   └── api.js       # API service with Axios
+│   │   ├── App.jsx          # Main app component
+│   │   ├── main.jsx         # Entry point
+│   │   └── index.css        # Global styles
+│   ├── package.json         # Node dependencies
+│   ├── vite.config.js       # Vite configuration
+│   └── tailwind.config.js   # TailwindCSS config
+├── data/
+│   └── latest_metrics.csv   # Data file (36 cities)
+├── INSTALL.md               # Installation guide
+└── README.md                # This file
+```
+
+## 🛠️ Tech Stack
+
+### Backend
+- **FastAPI** - Modern Python web framework
+- **Pandas** - Data manipulation
+- **Uvicorn** - ASGI server
+
+### Frontend
+- **React 18** - UI framework
+- **Vite** - Build tool & dev server
+- **TailwindCSS** - Utility-first CSS framework
+- **Recharts** - Chart library
+- **Axios** - HTTP client
+
+## 📊 Data
+
+The application currently tracks **36 cities** across multiple countries including:
+- 🇦🇷 Argentina (Cordoba, Buenos Aires)
+- 🇨🇱 Chile (Santiago)
+- 🇧🇷 Brazil (Sao Paulo, Rio de Janeiro)
+- 🇺🇸 United States
+- 🇨🇦 Canada
+- 🇯🇵 Japan
+- 🇪🇺 European cities
+- And more...
+
+Data source: **Numbeo** (automatically calculated)
+
+## 🎨 Design Features
+
+- **Glassmorphism**: Modern glass-like UI effects
+- **Gradient Colors**: Vibrant color schemes
+- **Smooth Animations**: Hover effects and transitions
+- **Dark Mode**: Elegant dark theme
+- **Responsive**: Works on all screen sizes
+
+## 📝 API Endpoints
+
+### `GET /`
+Health check endpoint
+```json
+{
+  "status": "ok",
+  "message": "Global Living Tracker API is running"
+}
+```
+
+### `GET /api/metrics`
+Get all city metrics
+```json
+[
+  {
+    "city": "Buenos-Aires",
+    "country": "Argentina",
+    "purchasing_power_index": 45.23,
+    "hours_to_earn_basket": 12.5,
+    "basket_cost": 350.00,
+    "salary_avg_net": 1200.00
+  },
+  ...
+]
+```
+
+## 🔧 Development
+
+### Backend Development
 ```bash
-pytest -v
+cd backend
+python -m uvicorn main:app --reload --port 8000
 ```
+API will be available at http://localhost:8000
+API docs at http://localhost:8000/docs
 
-## 📊 Visualization
-
-### Streamlit Dashboard (New!)
-We have added a Streamlit dashboard to visualize the data interactively.
-
-**Run locally:**
+### Frontend Development
 ```bash
-streamlit run app.py
+cd frontend
+npm run dev
 ```
+App will be available at http://localhost:5173
 
-**Deploy:**
-You can deploy this repo directly to [Streamlit Cloud](https://streamlit.io/cloud). Just connect your GitHub repository and set the main file to `app.py`.
+### Build for Production
+```bash
+cd frontend
+npm run build
+```
+Optimized files will be in `frontend/dist/`
 
-## 📊 Power BI Connection
-1. Open Power BI Desktop.
-2. Get Data -> Google Sheets.
-3. Paste your Sheet URL.
-4. Visualize "Purchasing Power Index" and "Hours to Earn Basket".
+## 🐛 Troubleshooting
+
+See [INSTALL.md](INSTALL.md) for common issues and solutions.
+
+## 📄 License
+
+This project is for educational and personal use.
+
+## 🤝 Contributing
+
+This is a personal project, but suggestions are welcome!
 
 ---
-*Built for Portfolio Demonstration | Analyst + Engineer Profile*
+
+Made with ❤️ using FastAPI, React, and TailwindCSS
