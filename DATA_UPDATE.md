@@ -1,94 +1,50 @@
-# Actualización de Datos - Global Cost of Living Tracker
+# 🔄 Updating Data
 
-## 📊 Estado Actual de los Datos
+With the new static architecture, updating data is straightforward. All data is stored in a static JSON file.
 
-Los datos actualmente están **ESTÁTICOS** en `api/data/latest_metrics.csv`. Fueron extraídos una vez y no se actualizan automáticamente.
+## Data File Location
 
-## 🔄 Cómo Actualizar los Datos
+📂 `public/data/metrics.json`
 
-### Opción 1: Usando Numbeo API (Recomendado)
+## How to Update
 
-1. **Obtener API Key de Numbeo:**
-   - Visita: https://www.numbeo.com/api/doc.jsp
-   - Registrate y obtén tu API key
-   - Costo: ~$50-100 USD por mes (dependiendo del plan)
+1. Open `public/data/metrics.json` in your code editor.
+2. The file contains an array of city objects. You can:
+   - **Edit** existing values directly
+   - **Add** a new city object to the array
+   - **Remove** a city object
 
-2. **Configurar el script:**
-   ```bash
-   # Establecer la API key como variable de entorno
-   set NUMBEO_API_KEY=tu_api_key_aqui
-   ```
+### City Object Structure
 
-3. **Ejecutar el script de actualización:**
-   ```bash
-   python scripts/update_numbeo_data.py
-   ```
-
-### Opción 2: Actualización Manual desde Numbeo Website
-
-Si no quieres pagar por la API, puedes actualizar manualmente:
-
-1. Visita https://www.numbeo.com/cost-of-living/
-2. Para cada ciudad, extrae los datos necesarios
-3. Actualiza el archivo `api/data/latest_metrics.csv`
-
-### Opción 3: Web Scraping (No Recomendado)
-
-Numbeo no permite scraping según sus términos de servicio. Usa la API oficial.
-
-## 📅 Frecuencia de Actualización Recomendada
-
-- **Mensual**: Para mantener datos actualizados
-- **Trimestral**: Mínimo aceptable
-- **Anual**: Solo si el presupuesto es muy limitado
-
-## 🤖 Automatización con GitHub Actions
-
-Puedes automatizar la actualización creando un workflow de GitHub Actions:
-
-```yaml
-# .github/workflows/update-data.yml
-name: Update Numbeo Data
-
-on:
-  schedule:
-    - cron: '0 0 1 * *'  # Primer día de cada mes
-  workflow_dispatch:  # Permite ejecución manual
-
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Update data
-        env:
-          NUMBEO_API_KEY: ${{ secrets.NUMBEO_API_KEY }}
-        run: python scripts/update_numbeo_data.py
-      - name: Commit changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add api/data/latest_metrics.csv
-          git commit -m "Update Numbeo data" || echo "No changes"
-          git push
+```json
+{
+  "city": "City-Name",
+  "country": "Country Name",
+  "purchasing_power_index": 85.5,
+  "hours_to_earn_basket": 150.2,
+  "basket_cost": 500.00,
+  "salary_avg_net": 2500.00,
+  "image_url": "https://images.unsplash.com/...",
+  "meal_inexpensive": 15.00,
+  ... (other detailed metrics)
+}
 ```
 
-## ⚠️ Importante
+## Adding Images
 
-1. **Calidad de Datos**: Numbeo es crowdsourced, verifica la calidad
-2. **Costos**: La API de Numbeo es de pago
-3. **Alternativas Gratuitas**: 
-   - World Bank Open Data (menos detallado)
-   - OECD Data (solo países OECD)
-   - Manual updates from public sources
+When adding a new city, you can use Unsplash for high-quality images. Copy the image URL and paste it into the `image_url` field.
 
-## 📝 Notas
+## Deploying Updates
 
-- Los datos actuales parecen ser de 2023-2024
-- Para un dashboard profesional de 2026, se recomienda actualizar
-- Considera agregar un timestamp visible en el dashboard
+After modifying the JSON file:
+
+1. Commit your changes:
+   ```bash
+   git add public/data/metrics.json
+   git commit -m "Update city data"
+   ```
+2. Push to your repository:
+   ```bash
+   git push
+   ```
+3. Your hosting provider (e.g., Vercel, Netlify) will automatically redeploy with the new data.

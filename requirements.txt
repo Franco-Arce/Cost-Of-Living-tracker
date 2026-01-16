@@ -1,9 +1,0 @@
-requests
-beautifulsoup4
-pandas
-gspread
-oauth2client
-pytest
-python-dotenv
-streamlit
-plotly

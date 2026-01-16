@@ -1,11 +1,10 @@
 # 🌍 Global Cost of Living Tracker
 
-A modern web application to compare the **Real Purchasing Power** between different cities worldwide. Built with FastAPI backend and React frontend.
+A modern web application to compare the **Real Purchasing Power** between different cities worldwide. Built with React and static JSON data.
 
 ![Version](https://img.shields.io/badge/version-2.0.0-blue)
-![Python](https://img.shields.io/badge/python-3.14-green)
 ![React](https://img.shields.io/badge/react-18.3-blue)
-![FastAPI](https://img.shields.io/badge/fastapi-0.128-teal)
+![Vite](https://img.shields.io/badge/vite-6.0-purple)
 
 ## ✨ Features
 
@@ -22,100 +21,84 @@ A modern web application to compare the **Real Purchasing Power** between differ
 
 ### Prerequisites
 
-- **Python 3.14+** (already installed ✅)
 - **Node.js 20+** ([Download here](https://nodejs.org/))
 
 ### Installation
 
-1. **Install Node.js** (if not installed)
-   - See [INSTALL.md](INSTALL.md) for detailed instructions
-
-2. **Install Backend Dependencies**
+1. **Install Dependencies**
    ```bash
-   cd backend
-   python -m pip install -r requirements.txt
-   ```
-
-3. **Install Frontend Dependencies**
-   ```bash
-   cd frontend
    npm install
    ```
 
 ### Running the Application
 
-You need **two terminals** running simultaneously:
-
-**Terminal 1 - Backend:**
+**Development Mode:**
 ```bash
-cd backend
-python -m uvicorn main:app --reload --port 8000
-```
-
-**Terminal 2 - Frontend:**
-```bash
-cd frontend
 npm run dev
 ```
 
 Then open your browser at: **http://localhost:5173**
 
+**Production Build:**
+```bash
+npm run build
+npm run preview
+```
+
 ## 📁 Project Structure
 
 ```
 Global Cost of Living Tracker/
-├── backend/
-│   ├── main.py              # FastAPI server
-│   └── requirements.txt     # Python dependencies
-├── frontend/
-│   ├── src/
-│   │   ├── components/      # React components
-│   │   │   ├── KPICards.jsx
-│   │   │   ├── Sidebar.jsx
-│   │   │   ├── PurchasingPowerChart.jsx
-│   │   │   ├── CostVsSalaryChart.jsx
-│   │   │   └── HoursToEarnChart.jsx
-│   │   ├── services/
-│   │   │   └── api.js       # API service with Axios
-│   │   ├── App.jsx          # Main app component
-│   │   ├── main.jsx         # Entry point
-│   │   └── index.css        # Global styles
-│   ├── package.json         # Node dependencies
-│   ├── vite.config.js       # Vite configuration
-│   └── tailwind.config.js   # TailwindCSS config
-├── data/
-│   └── latest_metrics.csv   # Data file (36 cities)
-├── INSTALL.md               # Installation guide
+├── public/
+│   └── data/
+│       └── metrics.json     # Static data file (37 cities)
+├── src/
+│   ├── components/          # React components
+│   │   ├── KPICards.jsx
+│   │   ├── Sidebar.jsx
+│   │   ├── PurchasingPowerChart.jsx
+│   │   ├── CostVsSalaryChart.jsx
+│   │   └── HoursToEarnChart.jsx
+│   ├── services/
+│   │   └── api.js           # API service with Axios
+│   ├── i18n/                # Internationalization
+│   ├── App.jsx              # Main app component
+│   ├── main.jsx             # Entry point
+│   └── index.css            # Global styles
+├── package.json             # Node dependencies
+├── vite.config.js           # Vite configuration
+├── tailwind.config.js       # TailwindCSS config
 └── README.md                # This file
 ```
 
 ## 🛠️ Tech Stack
 
-### Backend
-- **FastAPI** - Modern Python web framework
-- **Pandas** - Data manipulation
-- **Uvicorn** - ASGI server
-
-### Frontend
 - **React 18** - UI framework
 - **Vite** - Build tool & dev server
 - **TailwindCSS** - Utility-first CSS framework
 - **Recharts** - Chart library
 - **Axios** - HTTP client
+- **Static JSON** - Data storage
 
 ## 📊 Data
 
-The application currently tracks **36 cities** across multiple countries including:
+The application currently tracks **37 cities** across multiple countries including:
 - 🇦🇷 Argentina (Cordoba, Buenos Aires)
 - 🇨🇱 Chile (Santiago)
 - 🇧🇷 Brazil (Sao Paulo, Rio de Janeiro)
-- 🇺🇸 United States
-- 🇨🇦 Canada
-- 🇯🇵 Japan
-- 🇪🇺 European cities
-- And more...
+- 🇺🇸 United States (Miami, New York, San Francisco, Los Angeles, Chicago)
+- 🇨🇦 Canada (Toronto, Vancouver, Montreal)
+- 🇯🇵 Japan (Tokyo, Osaka)
+- 🇪🇺 European cities (Madrid, Barcelona, London, Paris, Berlin, Munich, Rome, Milan, Amsterdam, Zurich, Lisbon, Dublin, Vienna)
+- 🇲🇽 Mexico (Mexico City, Monterrey)
+- 🇺🇾 Uruguay (Montevideo)
+- 🇨🇷 Costa Rica (San Jose)
+- 🇵🇦 Panama (Panama City)
+- 🇨🇴 Colombia (Bogota, Medellin)
+- 🇵🇪 Peru (Lima)
 
-Data source: **Numbeo** (automatically calculated)
+Data source: **Numbeo**
+Data format: **Static JSON** (`public/data/metrics.json`)
 
 ## 🎨 Design Features
 
@@ -125,56 +108,56 @@ Data source: **Numbeo** (automatically calculated)
 - **Dark Mode**: Elegant dark theme
 - **Responsive**: Works on all screen sizes
 
-## 📝 API Endpoints
+## 📊 Data Structure
 
-### `GET /`
-Health check endpoint
-```json
-{
-  "status": "ok",
-  "message": "Global Living Tracker API is running"
-}
-```
+The application uses a static JSON file located at `/data/metrics.json`:
 
-### `GET /api/metrics`
-Get all city metrics
 ```json
 [
   {
     "city": "Buenos-Aires",
     "country": "Argentina",
-    "purchasing_power_index": 45.23,
-    "hours_to_earn_basket": 12.5,
-    "basket_cost": 350.00,
-    "salary_avg_net": 1200.00
+    "purchasing_power_index": 0.7952243270189432,
+    "hours_to_earn_basket": 201.2010882511504,
+    "basket_cost": 1003.0,
+    "salary_avg_net": 797.61,
+    "image_url": "https://images.unsplash.com/...",
+    // ... additional metrics
   },
-  ...
+  // ... more cities
 ]
 ```
 
 ## 🔧 Development
 
-### Backend Development
+### Development Server
 ```bash
-cd backend
-python -m uvicorn main:app --reload --port 8000
-```
-API will be available at http://localhost:8000
-API docs at http://localhost:8000/docs
-
-### Frontend Development
-```bash
-cd frontend
 npm run dev
 ```
 App will be available at http://localhost:5173
 
 ### Build for Production
 ```bash
-cd frontend
 npm run build
 ```
-Optimized files will be in `frontend/dist/`
+Optimized files will be in `dist/`
+
+### Preview Production Build
+```bash
+npm run preview
+```
+
+## 🚀 Deployment
+
+This is a static application and can be deployed to any static hosting platform:
+
+- **Vercel**: Connect your repo and deploy automatically
+- **Netlify**: Drag and drop the `dist/` folder or connect your repo
+- **GitHub Pages**: Use GitHub Actions to deploy
+- **Cloudflare Pages**: Connect your repo for automatic deployments
+
+Build command: `npm run build`
+Output directory: `dist`
 
 ## 🐛 Troubleshooting
 

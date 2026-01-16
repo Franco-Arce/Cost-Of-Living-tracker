@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = '/data';
 
 export const metricsService = {
     /**
-     * Fetch all metrics data from the backend
+     * Fetch all metrics data from static JSON file
      * @returns {Promise<Array>} Array of city metrics
      */
     async getMetrics() {
         try {
-            const response = await axios.get(`${API_BASE_URL}/metrics`);
+            const response = await axios.get(`${API_BASE_URL}/metrics.json`);
             return response.data;
         } catch (error) {
             console.error('Error fetching metrics:', error);
