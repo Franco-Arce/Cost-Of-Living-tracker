@@ -1,7 +1,9 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 import { getCountryFlag } from '../utils/countryUtils';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function HoursToEarnChart({ data }) {
+    const { t } = useLanguage();
     const sortedData = [...data].sort((a, b) => a.hours_to_earn_basket - b.hours_to_earn_basket);
 
     // Gradient from green (good) to red (bad)
@@ -30,11 +32,11 @@ export default function HoursToEarnChart({ data }) {
                     </div>
                     <div className="space-y-2">
                         <p className="text-orange-200">
-                            <span className="text-orange-400 font-semibold">Work Hours:</span>{' '}
+                            <span className="text-orange-400 font-semibold">{t('workHours')}:</span>{' '}
                             <span className="font-bold text-2xl text-gradient">{hours.toFixed(1)} hrs</span>
                         </p>
-                        <p className="text-xs text-orange-300/60 italic">
-                            {hours < 15 ? '✨ Excellent!' : hours < 25 ? '👍 Good' : hours < 35 ? '⚠️ Fair' : '😰 Challenging'}
+                        <p className="text-xs text-slate-500">
+                            {hours < 15 ? t('excellent') : hours < 25 ? t('good') : hours < 35 ? t('fair') : t('challenging')}
                         </p>
                     </div>
                 </div>
@@ -49,14 +51,10 @@ export default function HoursToEarnChart({ data }) {
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-600/20 to-red-600/20 rounded-full blur-3xl"></div>
 
             <div className="relative z-10">
-                <div className="mb-8">
-                    <div className="flex items-center gap-4 mb-3">
-                        <span className="text-5xl">⏰</span>
-                        <h2 className="text-4xl font-black text-gradient">Work Hours to Earn Basket</h2>
-                    </div>
-                    <p className="text-violet-200/80 text-lg">
-                        How many hours of average wage needed to buy a standard basket of goods.
-                        <span className="text-emerald-400 font-semibold"> Lower is better for workers.</span>
+                <div className="mb-6">
+                    <h2 className="text-xl font-semibold text-slate-100 mb-2">{t('workHoursToEarn')}</h2>
+                    <p className="text-sm text-slate-400">
+                        {t('workHoursDesc')}
                     </p>
                 </div>
 
@@ -89,7 +87,7 @@ export default function HoursToEarnChart({ data }) {
                         />
                         <Bar
                             dataKey="hours_to_earn_basket"
-                            name="Hours to Earn Basket"
+                            name={t('workHoursToEarn')}
                             radius={[0, 12, 12, 0]}
                             animationDuration={1000}
                         >

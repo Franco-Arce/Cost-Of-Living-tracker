@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 import pandas as pd
 import os
 
@@ -34,3 +35,7 @@ def get_metrics():
 @app.get("/api/health")
 def read_root():
     return {"status": "ok", "message": "Global Living Tracker API is running on Vercel"}
+
+# Vercel serverless handler
+handler = Mangum(app)
+

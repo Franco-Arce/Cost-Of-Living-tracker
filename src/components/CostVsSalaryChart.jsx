@@ -1,7 +1,9 @@
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ZAxis, Cell } from 'recharts';
 import { getCountryFlag } from '../utils/countryUtils';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function CostVsSalaryChart({ data }) {
+    const { t } = useLanguage();
     // Color palette for scatter points
     const colors = ['#8b5cf6', '#d946ef', '#06b6d4', '#10b981', '#f59e0b', '#ef4444'];
 
@@ -21,15 +23,15 @@ export default function CostVsSalaryChart({ data }) {
                     </div>
                     <div className="space-y-2">
                         <p className="text-cyan-200">
-                            <span className="text-cyan-400 font-semibold">Basket Cost:</span>{' '}
+                            <span className="text-cyan-400 font-semibold">{t('basketCost')}:</span>{' '}
                             <span className="font-bold text-lg">${item.basket_cost.toFixed(2)}</span>
                         </p>
                         <p className="text-emerald-200">
-                            <span className="text-emerald-400 font-semibold">Avg Salary:</span>{' '}
+                            <span className="text-emerald-400 font-semibold">{t('avgSalary')}:</span>{' '}
                             <span className="font-bold text-lg">${item.salary_avg_net.toFixed(2)}</span>
                         </p>
                         <p className="text-violet-200">
-                            <span className="text-violet-400 font-semibold">PPI:</span>{' '}
+                            <span className="text-violet-400 font-semibold">{t('ppi')}:</span>{' '}
                             <span className="font-bold text-lg text-gradient">{item.purchasing_power_index.toFixed(2)}</span>
                         </p>
                     </div>
@@ -45,14 +47,10 @@ export default function CostVsSalaryChart({ data }) {
             <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-cyan-600/20 to-blue-600/20 rounded-full blur-3xl"></div>
 
             <div className="relative z-10">
-                <div className="mb-8">
-                    <div className="flex items-center gap-4 mb-3">
-                        <span className="text-5xl">⚖️</span>
-                        <h2 className="text-4xl font-black text-gradient-alt">Cost vs. Salary Balance</h2>
-                    </div>
-                    <p className="text-violet-200/80 text-lg">
-                        Explore the relationship between living costs and salaries.
-                        <span className="text-cyan-400 font-semibold"> Bubble size represents purchasing power.</span>
+                <div className="mb-6">
+                    <h2 className="text-xl font-semibold text-slate-100 mb-2">{t('costVsSalary')}</h2>
+                    <p className="text-sm text-slate-400">
+                        {t('costVsSalaryDesc')}
                     </p>
                 </div>
 
@@ -68,10 +66,10 @@ export default function CostVsSalaryChart({ data }) {
                         <XAxis
                             type="number"
                             dataKey="basket_cost"
-                            name="Basket Cost (USD)"
+                            name={t('basketCostAxis')}
                             stroke="rgba(103, 232, 249, 0.8)"
                             label={{
-                                value: 'Basket Cost (USD)',
+                                value: t('basketCostAxis'),
                                 position: 'insideBottom',
                                 offset: -15,
                                 fill: 'rgba(103, 232, 249, 0.9)',
@@ -83,10 +81,10 @@ export default function CostVsSalaryChart({ data }) {
                         <YAxis
                             type="number"
                             dataKey="salary_avg_net"
-                            name="Avg Net Salary (USD)"
+                            name={t('avgSalaryAxis')}
                             stroke="rgba(103, 232, 249, 0.8)"
                             label={{
-                                value: 'Avg Net Salary (USD)',
+                                value: t('avgSalaryAxis'),
                                 angle: -90,
                                 position: 'insideLeft',
                                 fill: 'rgba(103, 232, 249, 0.9)',
@@ -102,7 +100,7 @@ export default function CostVsSalaryChart({ data }) {
                             iconType="circle"
                         />
                         <Scatter
-                            name="Cities"
+                            name={t('cities')}
                             data={data}
                             fill="url(#scatterGradient)"
                             animationDuration={1200}

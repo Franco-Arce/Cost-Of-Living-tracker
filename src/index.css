@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-200 min-h-screen overflow-x-hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0a0a0f;
+  }
+}
+
+@layer components {
+
+  /* Card Components - Corporate & Minimal */
+  .card {
+    @apply bg-slate-900/50 rounded-md p-5 shadow-sm border border-slate-800/60 transition-all duration-200;
+  }
+
+  .card:hover {
+    @apply border-slate-700/80 shadow-md;
+  }
+
+  .card-glass {
+    @apply bg-slate-900/60 rounded-md p-6 shadow-md border border-slate-800/70 transition-all duration-200;
+  }
+
+  .card-glass:hover {
+    @apply border-slate-700/90;
+  }
+
+  /* Buttons - Minimal Professional */
+  .btn-primary {
+    @apply bg-violet-800 hover:bg-violet-700 text-slate-100 font-medium px-5 py-2.5 rounded-md shadow-sm transition-all duration-150;
+  }
+
+  .btn-primary:hover {
+    @apply shadow-md;
+  }
+
+  /* Metric Cards - Data Dashboard Style */
+  .metric-card {
+    @apply bg-slate-900/40 rounded-md p-5 shadow-sm border border-slate-800/50 transition-all duration-200;
+    @apply flex flex-col items-center justify-center space-y-2.5 relative;
+  }
+
+  .metric-card:hover {
+    @apply border-violet-900/60 bg-slate-900/60;
+  }
+
+  /* Country Badge - Minimal */
+  .country-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-800/60 border border-slate-700/50 transition-all duration-150 cursor-pointer text-sm;
+  }
+
+  .country-badge:hover {
+    @apply border-violet-800/60 bg-slate-800/80;
+  }
+
+  .flag-emoji {
+    @apply text-base;
+  }
+}
+
+@layer utilities {
+
+  /* Text - Minimal Styling */
+  .text-gradient {
+    @apply text-violet-400;
+  }
+
+  .text-gradient-alt {
+    @apply text-slate-300;
+  }
+
+  /* No Glow Effects - Professional */
+  .glow {
+    text-shadow: none;
+  }
+
+  .glow-strong {
+    text-shadow: none;
+  }
+
+  /* Minimal Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(15, 15, 20, 0.5);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #4c1d95;
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #5b21b6;
+  }
+}
+
+/* Minimal Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Data Visualization */
+.chart-container {
+  @apply bg-slate-900/40 rounded-md p-5 border border-slate-800/50;
+}
+
+/* Professional Headers */
+.section-header {
+  @apply border-b border-slate-800/60 pb-4 mb-6;
+}
+
+/* Data Tables */
+.data-row {
+  @apply border-b border-slate-800/40 hover:bg-slate-900/30 transition-colors duration-100;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  @apply bg-slate-950/95 border-r border-slate-800/60;
+}
+
+/* Professional Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-semibold tracking-tight;
+}
+
+/* Stat Numbers */
+.stat-number {
+  @apply text-3xl font-bold text-slate-100 tabular-nums;
+}
+
+.stat-label {
+  @apply text-sm text-slate-500 uppercase tracking-wide font-medium;
+}
+
+/* Chart Labels */
+.chart-label {
+  @apply text-xs text-slate-400 font-medium;
+}
+
+/* Professional Badges */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-violet-900/30 text-violet-300 border border-violet-800/40;
+}
+
+/* Focus States */
+button:focus-visible,
+input:focus-visible {
+  @apply outline-none ring-2 ring-violet-800/50 ring-offset-2 ring-offset-slate-950;
+}

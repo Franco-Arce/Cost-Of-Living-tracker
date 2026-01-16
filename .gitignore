@@ -19,8 +19,14 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # Vite
-frontend/dist/
-frontend/.vite/
+dist/
+.vite/
+
+# Vercel
+.vercel/
+
+# Temporary backup folder
+eliminar_temporal/
 
 # IDE
 .vscode/
